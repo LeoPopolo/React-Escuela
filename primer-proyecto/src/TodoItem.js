@@ -1,4 +1,5 @@
 import React from "react";
+import "./TodoItem.css";
 
 function TodoItem(props) {
     const onComplete = () => {
@@ -11,13 +12,16 @@ function TodoItem(props) {
 
     return(
         <li>
-            <span
+            <span className={ `${props.completed && 'completed'}` }
                 onClick={onComplete}
-            >C</span>
-            <p>{props.text}</p>
-            <span
+            >√</span>
+
+            <p className={ `${props.completed && 'completed'}` }
+            >{props.text}</p>
+
+            <span className="delete"
                 onClick={onDelete}
-            >X</span>
+            >x</span>
         </li>
     );
 }
