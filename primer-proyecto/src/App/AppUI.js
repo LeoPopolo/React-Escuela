@@ -1,35 +1,26 @@
 import React from 'react';
 import { TodoCounter } from "../TodoCounter/index";
 import { TodoSearch } from "../TodoSearch/index.js";
+import { TodoContext } from '../TodoContext/index.js';
 import { TodoList } from "../TodoList/index.js";
 import { TodoItem } from "../TodoItem/index.js";
 import { CreateTodoButton } from "../CreateTodoButton/index.js";
 
-function AppUI(
-    {
-        loading,
+function AppUI() {
+    const {
         error,
-        totalTodos,
-        completedTodos,
-        searchValue,
-        setSearchValue,
+        loading,
         searchedTodos,
         completeTodo,
-        deleteTodo,
-    }
-) {
+        deleteTodo
+    } = React.useContext(TodoContext);
+
     return (
         <React.Fragment>
             <div className="form-container">
                 <div className="form">
-                <TodoCounter 
-                    total={totalTodos}
-                    completed={completedTodos}
-                />
-                <TodoSearch 
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                />
+                <TodoCounter />
+                <TodoSearch />
 
                 <TodoList>
                     {loading && <p>Cargando</p>}
