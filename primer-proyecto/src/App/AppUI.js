@@ -4,6 +4,7 @@ import { TodoSearch } from "../TodoSearch/index.js";
 import { TodoContext } from '../TodoContext/index.js';
 import { TodoList } from "../TodoList/index.js";
 import { TodoItem } from "../TodoItem/index.js";
+import { TodoForm } from "../TodoForm/index.js";
 import { CreateTodoButton } from "../CreateTodoButton/index.js";
 import { Modal } from '../Modal/index.js';
 import "./index.css";
@@ -48,11 +49,7 @@ function AppUI() {
                 { !!openModal && (
                     <Modal>
                         <div className="modal">
-                            <div>
-                                <h3>Nueva tarea</h3>
-                                <input type="text"/>
-                                <button>Agregar</button>
-                            </div>
+                            <TodoForm/>
                         </div>
                     </Modal>
                 )}
