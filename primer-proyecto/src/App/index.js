@@ -10,7 +10,7 @@ import { TodosLoading } from "../TodosLoading";
 import { EmptyTodos } from "../EmptyTodos";
 import { EmptySearchResults } from "../EmptySearchResults";
 import { CreateTodoButton } from "../CreateTodoButton/index.js";
-import { ChangeAlertWithStorageListener } from "../ChangeAlert";
+import { ChangeAlert } from "../ChangeAlert";
 import { Modal } from '../Modal/index.js';
 import "./index.css";
 import { TodoHeader } from '../TodoHeader';
@@ -90,7 +90,7 @@ function App() {
             )}
             </div>
         </div>
-        <ChangeAlertWithStorageListener 
+        <ChangeAlert 
             sincronize={sincronizeTodos}
         />
     </React.Fragment>

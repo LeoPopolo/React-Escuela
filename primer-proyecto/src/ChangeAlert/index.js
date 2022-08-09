@@ -1,14 +1,19 @@
 import React from 'react';
-import { withStorageListener } from './withStorageListener';
+import { useStorageListener } from './useStorageListener';
 
-function ChangeAlert({show, toggleShow}) {
+function ChangeAlert({sincronize}) {
     
+    const {
+        show,
+        toggleShow
+    } = useStorageListener(sincronize);
+
     if (show) {
         return (
             <div>
                 <p>Hubo cambios</p>
                 <button
-                    onClick={toggleShow(false)}
+                    onClick={toggleShow}
                 >
                     Volver a cargar la info
                 </button>
@@ -19,6 +24,4 @@ function ChangeAlert({show, toggleShow}) {
     }
 }
 
-const ChangeAlertWithStorageListener = withStorageListener(ChangeAlert);
-
-export { ChangeAlertWithStorageListener };
+export { ChangeAlert };
