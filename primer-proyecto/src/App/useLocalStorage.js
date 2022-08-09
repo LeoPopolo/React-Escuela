@@ -1,6 +1,7 @@
 import React from "react";
 
 function useLocalStorage(itemName, initialValue) {
+    const [ sincronizedItem, setSincronizedItem ] = React.useState(true);
     const [ error, setError] = React.useState(false);
     const [ loading, setLoading] = React.useState(true);
     const [ item, setItem ] = React.useState(initialValue);
@@ -24,7 +25,8 @@ function useLocalStorage(itemName, initialValue) {
           setError(error);
         }
       }, 500);
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sincronizedItem]);
   
     const saveItems = (newItems) => {
       try {
@@ -37,12 +39,18 @@ function useLocalStorage(itemName, initialValue) {
         setError(error);
       }
     }
+
+    const sincronizeItem = () => {
+      setLoading(true);
+      setSincronizedItem(false);
+    }
   
     return {
       item, 
       saveItems,
       loading,
-      error
+      error,
+      sincronizeItem
     };
   }
 

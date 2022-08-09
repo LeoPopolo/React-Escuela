@@ -5,3 +5,7 @@ input {
     margin-block: 1em;
     border-radius: 100px;
 }
+
+.input:disabled {
+    opacity: 25%;
+}

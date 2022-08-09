@@ -5,9 +5,8 @@ form {
     width: 15%;
     margin-top: 15%;
     height: auto;
-    max-height: 25vh;
     padding: 1em;
-    position: relative;
+    position: fixed;
 }
   
 form h3 {
@@ -36,7 +35,6 @@ form button {
     box-shadow: 0 0 15px 1px #40404080;
     font-size: 1.1em;
     cursor: pointer;
-    position: relative;
 }  
 
 form .btn-cancel {
