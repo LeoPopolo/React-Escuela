@@ -2,60 +2,44 @@ import React from 'react';
 
 const SECURITY_CODE = 'paradigma';
 
-function UseState() {
-    const [ state, setState ] = React.useState({
-        value: '',
-        error: false,
-        loading: false,
-        deleted: false,
-        confirmed: false
-    });
+function UseReducer() {
+    const [ state, dispatch ] = React.useReducer(reducer, initialState);
 
     const onConfirm = () => {
-        setState({
-            ...state,
-            error: false,
-            loading: false,
-            confirmed: true
+        dispatch({
+            type: actionTypes.confirm
         });
     }
-
+    
     const onError = () => {
-        setState({
-            ...state,
-            error: true,
-            loading: false
+        dispatch({
+            type: actionTypes.error
         });
     }
-
-    const onWrite = (event) => {
-        setState({
-            ...state,
-            value: event.target.value
+    
+    const onWrite = ({target: {value}}) => {
+        dispatch({
+            type: actionTypes.write,
+            payload: value
         });
     }
-
+    
     const onCheck = () => {
-        setState({
-            ...state,
-            loading: true
+        dispatch({
+            type: actionTypes.check
         });
     }
-
+    
     const onDelete = () => {
-        setState({
-            ...state,
-            deleted: true
-        })
+        dispatch({
+            type: actionTypes.delete
+        });
     }
-
+    
     const onReset = () => {
-        setState({
-            ...state,
-            confirmed: false,
-            deleted: false,
-            value: ''
-        })
+        dispatch({
+            type: actionTypes.reset
+        });
     }
 
     React.useEffect(() => {
@@ -81,7 +65,7 @@ function UseState() {
     if (!state.deleted && !state.confirmed) {
         return (
             <div>
-                <h2>Eliminar UseState</h2>
+                <h2>Eliminar UseReducer</h2>
     
                 <p>Por favor, escribe el código de seguridad</p>
     
@@ -97,14 +81,10 @@ function UseState() {
                     type="text" 
                     placeholder="Código de seguridad"
                     value={state.value}
-                    onChange={(event)=>{
-                        onWrite(event);
-                    }}
+                    onChange={onWrite}
                 />
                 <button
-                    onClick={() => {
-                        onCheck();
-                    }}
+                    onClick={onCheck}
                 >Comprobar</button>
             </div>
         );
@@ -113,14 +93,10 @@ function UseState() {
             <React.Fragment>
                 <p>¿Tas seguro?</p>
                 <button
-                    onClick={() => {
-                        onDelete();
-                    }}
+                    onClick={onDelete}
                 >Sí, eliminar</button>
                 <button
-                    onClick={() => {
-                        onReset();
-                    }}
+                    onClick={onReset}
                 >No, me arrepentí</button>
             </React.Fragment>
         );
@@ -129,14 +105,69 @@ function UseState() {
             <React.Fragment>
                 <p>Eliminado con éxito</p>
                 <button
-                    onClick={() => {
-                        onReset();
-                    }}
+                    onClick={onReset}
                 >Volver atrás</button>
             </React.Fragment>
         );
     }
-
 }
 
-export { UseState };
+const initialState = {
+    value: '',
+    error: false,
+    loading: false,
+    deleted: false,
+    confirmed: false
+};
+
+const actionTypes = {
+    confirm: 'CONFIRM',
+    error: 'ERROR',
+    check: 'CHECK',
+    reset: 'RESET',
+    write: 'WRITE',
+    delete: 'DELETE'
+}
+
+const reducerObject = (state, payload) => ({
+    
+    [actionTypes.error]: {
+        ...state,
+        error: true,
+        loading: false
+    },
+    [actionTypes.check]: {
+        ...state,
+        loading: true
+    },
+    [actionTypes.confirm]: {
+        ...state,
+        error: false,
+        loading: false,
+        confirmed: true
+    },
+    [actionTypes.write]: {
+        ...state,
+        value: payload
+    },
+    [actionTypes.reset]: {
+        ...state,
+        confirmed: false,
+        deleted: false,
+        value: ''
+    },
+    [actionTypes.delete]: {
+        ...state,
+        deleted: true
+    }
+});
+
+const reducer = (state, action) => {
+    if (reducerObject(state)[action.type]) {
+        return reducerObject(state, action.payload)[action.type];
+    } else {
+        return state;
+    }
+}
+
+export { UseReducer };
