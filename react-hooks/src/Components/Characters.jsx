@@ -21,7 +21,7 @@ const favoriteReducer = (state, action) => {
   }
 }
 
-const Characters = () => {
+const Characters = ({darkMode}) => {
 
     const [ favorites, dispatch ] = useReducer(favoriteReducer, initialState);
     const [ search, setSearch ] = useState('');
@@ -32,10 +32,6 @@ const Characters = () => {
     const handleClick = favorite => {
       dispatch({type: 'ADD_TO_FAVORITE', payload: favorite});
     }
-
-    // const handleSearch = () => {
-    //   setSearch(searchInput.current.value);
-    // }
 
     const handleSearch = useCallback(() => {
       setSearch(searchInput.current.value);
@@ -60,7 +56,8 @@ const Characters = () => {
           <div className='data-container'>
             <div className='characters-container'>
               {filteredUsers.map(character => (
-                <div className='item' key={character.id}>
+                
+                <div className={`item ${darkMode && 'dark-item'} ${!darkMode && 'light-item'}`} key={character.id}>
                   <h2>{character.name}</h2>
                   <button type='button' onClick={() => handleClick(character)}>Agregar a favoritos
                   </button>
@@ -70,7 +67,9 @@ const Characters = () => {
 
             <div className='favorites-container'>
 
-              <h2>Favoritos</h2>
+              <h2
+                className={`${darkMode && 'darkmode-title'} ${!darkMode && 'lightmode-title'}`}
+              >Favoritos</h2>
 
               {favorites.favorites.map(favorite => (
                 <li key={favorite.id}>

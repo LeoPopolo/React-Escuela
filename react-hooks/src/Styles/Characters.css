@@ -29,6 +29,25 @@
 .item {
     padding: 1em;
     border-radius: 5px;
+    transition: 200ms all;
+}
+
+.light-item {
     box-shadow: 1px 1px 10px 1px #bbb;
     background-color: #d4edff;
+}
+
+.dark-item {
+    box-shadow: 1px 1px 10px 1px #00000080;
+    background-color: #377daf;
+}
+
+.darkmode-title {
+    color: #fff;
+    transition: 200ms all;
+}
+
+.lightmode-title {
+    color: #252525;
+    transition: 200ms all;
 }
